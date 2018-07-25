@@ -1,5 +1,9 @@
 # Node Health Middleware
 
+> Maikaʻi (Hawaiian) - (stative) to be well, fine, in a state of goodness
+
+  [![NPM Version][npm-image]][npm-url]
+
 Node health middleware is a unobtrusive module that you can easily integrate
 into your API code written in Node. This module is targeting multiple frameworks, 
 while currently supporting: Express.js.
@@ -103,3 +107,6 @@ The vision is that for our target architecture of containerized microservices,
 deployed on a kubernetes cluster, a PAR-certified CI/CD creating a brand new
 pipeline should take at most couple days, from end to end, when deployed with
 COVE.
+
+[npm-image]: https://img.shields.io/npm/v/maikai.svg
+[npm-url]: https://npmjs.org/package/maikai
