@@ -1,0 +1,70 @@
+{
+  "name": "maikai",
+  "version": "0.2.0",
+  "description": "RFC-compliant Health Middleware for HTTP APIs written in Node",
+  "author": "",
+  "license": "MIT",
+  "main": "./lib/health.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inadarei/node-health-middleware"
+  },
+  "engines": {
+    "node": ">=8.2"
+  },
+  "dependencies": {
+    "config": "^1.31.0",
+    "express": "^4.11.0",
+    "metalogger": "^2.2.0"
+  },
+  "devDependencies": {
+    "after": "^0.8.1",
+    "chai": "^4.1.2",
+    "eslint": "^5.2.0",
+    "eslint-plugin-mocha": "^5.1.0",
+    "istanbul": "^0.4.2",
+    "mocha": "^5.2.0",
+    "nock": "^9.0.0",
+    "nyc": "^12.0.2",
+    "should": "^13.0.0",
+    "supertest": "^3.0.0"
+  },
+  "scripts": {
+    "start": "nodemon -L -e js,coffee,jade,handlebars server.js",
+    "lint": "eslint lib test",
+    "lint-fix": "eslint --fix lib test",
+    "pretest": "npm run lint",
+    "test": "nyc mocha --bail test/ test/acceptance/",
+    "test-cov": "nyc mocha test/ test/acceptance/"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "per-file": true,
+    "lines": [
+      80,
+      90
+    ],
+    "statements": [
+      55,
+      90
+    ],
+    "functions": [
+      55,
+      90
+    ],
+    "branches": [
+      55,
+      90
+    ],
+    "include": [
+      "lib/**/*.js",
+      "*.js"
+    ],
+    "reporter": [
+      "text-summary",
+      "lcov"
+    ],
+    "all": true,
+    "report-dir": "./coverage"
+  }
+}
