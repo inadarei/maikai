@@ -4,7 +4,7 @@
 
   [![NPM Version][npm-image]][npm-url]
 
-Node health middleware is a unobtrusive module that you can easily integrate
+Node health middleware is an unobtrusive module that you can easily integrate
 into your API code written in Node. This module is targeting multiple frameworks, 
 while currently supporting: Express.js.
 
@@ -20,8 +20,9 @@ defined in the [healthcheck draft RFC](https://tools.ietf.org/html/draft-inadare
 - [x] Express/Connect
 - [ ] Koa
 - [ ] Sails.js
+- [ ] hapi.js
 - [ ] Restify
-
+- [ ] Pure Node, no frameworks
 
 ## Installation
 
