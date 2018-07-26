@@ -15,7 +15,8 @@
   "dependencies": {
     "config": "^1.31.0",
     "express": "^4.11.0",
-    "metalogger": "^2.2.0"
+    "metalogger": "^2.2.0",
+    "supertest": "^3.1.0"
   },
   "devDependencies": {
     "blue-tape": "^1.0.0",
@@ -29,8 +30,8 @@
     "lint": "eslint lib test",
     "lint-fix": "eslint --fix lib test",
     "pretest": "npm run lint",
-    "test": "export NODE_TAPE_OBJECT_PRINT_DEPTH=infinity && nyc blue-tape test/**/*.js | tap-nirvana ",
-    "test-fast": "blue-tape test/**/*.js | tap-nirvana",
+    "test-detail": "export NODE_TAPE_OBJECT_PRINT_DEPTH=infinity && nyc blue-tape test/**/*.js | tap-nirvana ",
+    "test": "blue-tape test/**/*.js | tap-nirvana",
     "test-cov": "nyc --check-coverage report test/",
     "coveralls": "npm run test-cov -- && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
