@@ -4,23 +4,16 @@ const app = express();
 
 const healthcheck = require("../../lib/health");
 
-healthcheck.addCheck('cassandra', 'timeout', async() => {
+healthcheck.addCheck('backend', 'something', async() => {
     return {
-        status : 'pass',
-        bullshit : false,
-        metricValue: 250,
-        "metricUnit": "ms"
+        status : 'fail',
+        unusualProp : false,
+        metricValue: 17,
+        metricUnit: "tps"
     };
 });
 
 app.use(healthcheck({}));
-
-function responder(req, res) {
-    res.send('Hello World!');
-}
-
-app.get('/', responder);
-app.get('/hello', responder);
 
 // Note: listening on port "0" results to listening on random, free port. Avoids conflicts.
 const server = app.listen(0, function () {

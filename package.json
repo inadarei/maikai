@@ -15,13 +15,13 @@
   "dependencies": {
     "config": "^1.31.0",
     "express": "^4.11.0",
-    "metalogger": "^2.2.0",
-    "supertest": "^3.1.0"
+    "metalogger": "^2.2.0"
   },
   "devDependencies": {
     "blue-tape": "^1.0.0",
     "coveralls": "^3.0.0",
     "eslint": "^5.2.0",
+    "node-fetch": "^2.2.0",
     "nyc": "^12.0",
     "tap-nirvana": "^1.1.0",
     "tape": "^4.9.1"
@@ -30,29 +30,29 @@
     "lint": "eslint lib test",
     "lint-fix": "eslint --fix lib test",
     "pretest": "npm run lint",
-    "test": "export NODE_TAPE_OBJECT_PRINT_DEPTH=infinity && nyc blue-tape test/**/*.js | tap-nirvana ",
-    "test-fast": "blue-tape test/**/*.js | tap-nirvana",
-    "test-cov": "nyc blue-tape test/**/*.js",
+    "test": "export NODE_TAPE_OBJECT_PRINT_DEPTH=infinity && nyc blue-tape test/**/*-test.js | tap-nirvana ",
+    "test-fast": "blue-tape test/**/*-test.js | tap-nirvana",
+    "test-cov": "nyc blue-tape test/**/*-test.js",
     "coveralls": "npm run test-cov -- && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "nyc": {
     "check-coverage": true,
     "per-file": true,
     "lines": [
-      80,
-      90
+      50,
+      80
     ],
     "statements": [
       55,
-      90
+      80
     ],
     "functions": [
       55,
-      90
+      80
     ],
     "branches": [
       55,
-      90
+      80
     ],
     "include": [
       "lib/**/*.js",
