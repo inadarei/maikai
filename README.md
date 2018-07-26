@@ -3,7 +3,7 @@
 > Maikaʻi (Hawaiian) - (stative) to be well, fine, in a state of goodness
 
   [![NPM Version][npm-image]][npm-url]
-  [![Coverage Status](coveralls-image)](coveralls-url)
+  [![Coverage Status][coveralls-image]][coveralls-url]
 
 Node health middleware is an unobtrusive module that you can easily integrate
 into your API code written in Node. This module is targeting multiple frameworks, 
