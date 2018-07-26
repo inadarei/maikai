@@ -2,7 +2,7 @@ const log     = require('metalogger')();
 const express = require('express');
 const app = express();
 
-const healthcheck = require("../../");
+const healthcheck = require("../../lib/health");
 
 healthcheck.addCheck('cassandra', 'timeout', async() => {
     return {

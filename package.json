@@ -30,9 +30,9 @@
     "lint": "eslint lib test",
     "lint-fix": "eslint --fix lib test",
     "pretest": "npm run lint",
-    "test-detail": "export NODE_TAPE_OBJECT_PRINT_DEPTH=infinity && nyc blue-tape test/**/*.js | tap-nirvana ",
-    "test": "blue-tape test/**/*.js | tap-nirvana",
-    "test-cov": "nyc --check-coverage report test/",
+    "test": "export NODE_TAPE_OBJECT_PRINT_DEPTH=infinity && nyc blue-tape test/**/*.js | tap-nirvana ",
+    "test-fast": "blue-tape test/**/*.js | tap-nirvana",
+    "test-cov": "nyc blue-tape test/**/*.js",
     "coveralls": "npm run test-cov -- && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "nyc": {
@@ -56,6 +56,8 @@
     ],
     "include": [
       "lib/**/*.js",
+      "lib/*.js",
+      "test/**/*.js",
       "*.js"
     ],
     "reporter": [
