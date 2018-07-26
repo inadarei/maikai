@@ -18,24 +18,21 @@
     "metalogger": "^2.2.0"
   },
   "devDependencies": {
-    "after": "^0.8.1",
-    "chai": "^4.1.2",
+    "blue-tape": "^1.0.0",
+    "coveralls": "^3.0.0",
     "eslint": "^5.2.0",
-    "eslint-plugin-mocha": "^5.1.0",
-    "istanbul": "^0.4.2",
-    "mocha": "^5.2.0",
-    "nock": "^9.0.0",
-    "nyc": "^12.0.2",
-    "should": "^13.0.0",
-    "supertest": "^3.0.0"
+    "nyc": "^12.0",
+    "tap-nirvana": "^1.1.0",
+    "tape": "^4.9.1"
   },
   "scripts": {
-    "start": "nodemon -L -e js,coffee,jade,handlebars server.js",
     "lint": "eslint lib test",
     "lint-fix": "eslint --fix lib test",
     "pretest": "npm run lint",
-    "test": "nyc mocha --bail test/ test/acceptance/",
-    "test-cov": "nyc mocha test/ test/acceptance/"
+    "test": "export NODE_TAPE_OBJECT_PRINT_DEPTH=infinity && nyc blue-tape test/**/*.js | tap-nirvana ",
+    "test-fast": "blue-tape test/**/*.js | tap-nirvana",
+    "test-cov": "nyc --check-coverage report test/",
+    "coveralls": "npm run test-cov -- && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "nyc": {
     "check-coverage": true,
