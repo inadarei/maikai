@@ -27,12 +27,12 @@
     "tape": "^4.9.1"
   },
   "scripts": {
-    "lint": "eslint lib test",
-    "lint-fix": "eslint --fix lib test",
-    "pretest": "npm run lint",
-    "test": "export NODE_TAPE_OBJECT_PRINT_DEPTH=infinity && nyc blue-tape test/**/*-test.js | tap-nirvana ",
+    "lint":      "eslint lib test",
+    "lint-fix":  "eslint --fix lib test",
+    "pretest":   "npm run lint",
+    "test":      "export NODE_TAPE_OBJECT_PRINT_DEPTH=infinity && nyc blue-tape test/**/*-test.js | tap-nirvana ",
     "test-fast": "blue-tape test/**/*-test.js | tap-nirvana",
-    "test-cov": "nyc blue-tape test/**/*-test.js",
+    "test-cov":  "nyc blue-tape test/**/*-test.js",
     "coveralls": "npm run test-cov -- && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "nyc": {

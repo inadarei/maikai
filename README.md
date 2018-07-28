@@ -64,6 +64,19 @@ healthcheck.addCheck('cassandra', 'timeout', async () => {
 app.use(healthcheck());
 ```
 
+## Customizations
+
+By default the health endpoying is mounted at `/health` path. However you
+can modify it by setting `NODE_HEALTH_ENDPOINT_PATH` to anything you wish.
+
+The biggest customization opportunity, when using Maikai, is the ability
+to develop custom health checkers. The overall health of the service is
+the some of all checkers. Meaning: if all of them "pass" then the service
+is "pass" (healthy) as well, if any of them is "warn" the overall health 
+is "warn" as well and if any of them "fail", the health of the service
+is a "fail" as well. Next section explains how you can
+go about writing custom health checks.
+
 ### Writing Custom Health Checkers
 
 Every APi and application is different. The kind of metrics you may need to track
