@@ -66,9 +66,9 @@ app.use(healthcheck());
 
 ## Customizations
 
-By default the health endpoint is mounted at the default `/health` path.
-However you can modify it by setting `NODE_HEALTH_ENDPOINT_PATH` to anything you
-wish.
+By default the health endpoint is mounted at the default `/health` path. However
+you can modify it by setting `NODE_HEALTH_ENDPOINT_PATH` environmental variable
+to anything you wish.
 
 The biggest customization opportunity, when using Maikai, is the ability
 to develop custom health checkers. The overall health of the service is
