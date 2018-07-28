@@ -66,7 +66,7 @@ app.use(healthcheck());
 
 ## Customizations
 
-By default the health endpoyint is mounted at the default `/health` path.
+By default the health endpoint is mounted at the default `/health` path.
 However you can modify it by setting `NODE_HEALTH_ENDPOINT_PATH` to anything you
 wish.
 
