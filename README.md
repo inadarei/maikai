@@ -66,8 +66,9 @@ app.use(healthcheck());
 
 ## Customizations
 
-By default the health endpoying is mounted at `/health` path. However you
-can modify it by setting `NODE_HEALTH_ENDPOINT_PATH` to anything you wish.
+By default the health endpoyint is mounted at the default `/health` path.
+However you can modify it by setting `NODE_HEALTH_ENDPOINT_PATH` to anything you
+wish.
 
 The biggest customization opportunity, when using Maikai, is the ability
 to develop custom health checkers. The overall health of the service is
