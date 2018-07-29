@@ -112,18 +112,6 @@ it failing, circuit-breaking should be implemented to prevent cascading failures
 
 [MIT](LICENSE)
 
-Developing a PAR-certified CI/CD pipeline takes teams upwards of several weeks
-or even months, in some cases. COVE team has been working hand-in-hand with the
-Artemis PAR team to drastically decrease this lead time by developing a
-streamlined COVE pipeline template, integrate it with the new PAR APIs for
-self-service principles and collect evidence in a standard report for
-non-automated principles, to speed-up even manual approval.
-
-The vision is that for our target architecture of containerized microservices,
-deployed on a kubernetes cluster, a PAR-certified CI/CD creating a brand new
-pipeline should take at most couple days, from end to end, when deployed with
-COVE.
-
 [npm-image]: https://img.shields.io/npm/v/maikai.svg
 [npm-url]: https://npmjs.org/package/maikai
 
