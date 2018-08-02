@@ -28,7 +28,7 @@ defined in the [healthcheck draft RFC](https://tools.ietf.org/html/draft-inadare
 ## Installation
 
 ```bash
-> npm i -S health-middleware
+> npm i -S maikai
 ```
 
 ## Usage
@@ -36,7 +36,7 @@ defined in the [healthcheck draft RFC](https://tools.ietf.org/html/draft-inadare
 Basic Usage:
 
 ```javascript
-const healthcheck = require('health-middleware');
+const healthcheck = require('maikai');
 
 // Add middleware to your Express app:
 app.use(healthcheck());
@@ -45,7 +45,7 @@ app.use(healthcheck());
 Advanced usage with custom health checker:
 
 ```javascript
-const healthcheck = require('health-middleware');
+const healthcheck = require('maikai');
 
 // If you need/want to add custom health checker functions:
 healthcheck.addCheck('cassandra', 'timeout', async () => {

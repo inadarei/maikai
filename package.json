@@ -1,13 +1,13 @@
 {
   "name": "maikai",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "RFC-compliant health check middleware for HTTP APIs and microservices written in Node",
   "author": "",
   "license": "MIT",
   "main": "./lib/health.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/inadarei/node-health-middleware"
+    "url": "https://github.com/inadarei/maikai"
   },
   "engines": {
     "node": ">=8.2"
@@ -27,12 +27,12 @@
     "tape": "^4.9.1"
   },
   "scripts": {
-    "lint":      "eslint lib test",
-    "lint-fix":  "eslint --fix lib test",
-    "pretest":   "npm run lint",
-    "test":      "export NODE_TAPE_OBJECT_PRINT_DEPTH=infinity && nyc blue-tape test/**/*-test.js | tap-nirvana ",
+    "lint": "eslint lib test",
+    "lint-fix": "eslint --fix lib test",
+    "pretest": "npm run lint",
+    "test": "export NODE_TAPE_OBJECT_PRINT_DEPTH=infinity && nyc blue-tape test/**/*-test.js | tap-nirvana ",
     "test-fast": "blue-tape test/**/*-test.js | tap-nirvana",
-    "test-cov":  "nyc blue-tape test/**/*-test.js",
+    "test-cov": "nyc blue-tape test/**/*-test.js",
     "coveralls": "npm run test-cov -- && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "nyc": {
