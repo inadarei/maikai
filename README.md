@@ -3,6 +3,7 @@
 > Maikaʻi (Hawaiian) - (stative) to be well, fine, in a state of goodness
 
   [![NPM Version][npm-image]][npm-url]
+  [![Build Status][travis-image]][travis-url]
   [![Coverage Status][coveralls-image]][coveralls-url]
 
 Node health middleware is an unobtrusive module that you can easily integrate
@@ -114,6 +115,9 @@ it failing, circuit-breaking should be implemented to prevent cascading failures
 
 [npm-image]: https://img.shields.io/npm/v/maikai.svg
 [npm-url]: https://npmjs.org/package/maikai
+
+[travis-image]: https://travis-ci.org/inadarei/maikai.svg?branch=master
+[travis-url]: https://travis-ci.org/inadarei/maikai
 
 [coveralls-image]: https://coveralls.io/repos/github/inadarei/maikai/badge.svg
 [coveralls-url]: https://coveralls.io/github/inadarei/maikai
