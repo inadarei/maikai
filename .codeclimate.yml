@@ -15,6 +15,5 @@ ratings:
   - "**.js"
   - "**.jsx"
 exclude_paths:
-- config/
 - test/
 - migrations/
