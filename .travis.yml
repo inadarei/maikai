@@ -6,7 +6,6 @@ env:
   - NODE_ENV=TEST 
 script:
   - "npm test"
-  #- "travis-github-status lint snyk"
 after_script:
   - npm run coveralls  
  
