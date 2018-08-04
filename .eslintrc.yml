@@ -41,3 +41,11 @@ rules:
     - off
   no-useless-escape: 
     - off
+  eol-last:
+    - warn
+    - always
+  no-multiple-empty-lines:
+    - warn
+    - maxEOF: 1
+      max: 2
+
