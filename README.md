@@ -81,7 +81,7 @@ const express = require('express');
 const app = express();
 const healthcheck = require("maikai");
 
-// For Liveness Probe defaults may be all you need. 
+// For Liveness Probe, defaults may be all you need. 
 const livenessCheck = healthcheck();
 app.use(livenessCheck.handler());
 
@@ -90,6 +90,12 @@ const readinessCheck = healthcheck({"path" : "/ping"});
 readinessCheck.addCheck('cassandra', 'timeout', dbQueryCheck);
 app.use(readinessCheck.handler());
 
+// Implementation of the dbQueryCheck:
+async function dbQueryCheck() {
+    // ... implementation of checking your database works
+}
+
+// -- rest of your server startup logic
 
 function responder(req, res) {
     res.send('Hello Worldie!');
@@ -99,9 +105,6 @@ app.get('/', responder);
 
 app.listen(3535, () => console.log('Example app listening on port 3535!'));
 
-async function dbQueryCheck() {
-    // ... implementation of checking your database works
-}
 ```
 
 ## Customizations
