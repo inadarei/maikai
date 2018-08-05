@@ -2,7 +2,7 @@ const log     = require('metalogger')();
 const express = require('express');
 const app = express();
 
-const healthcheck = require("../../lib/health");
+const healthcheck  = require('../../lib/health')();
 
 healthcheck.addCheck('backend', 'something', async() => {
     return {
@@ -13,7 +13,7 @@ healthcheck.addCheck('backend', 'something', async() => {
     };
 });
 
-app.use(healthcheck({}));
+app.use(healthcheck.handler());
 
 // Note: listening on port "0" results to listening on random, free port. Avoids conflicts.
 const server = app.listen(0, function () {

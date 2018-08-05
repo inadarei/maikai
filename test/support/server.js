@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 delete require.cache[require.resolve('../../lib/health')]; 
-const healthcheck = require("../../lib/health");
+const healthcheck  = require('../../lib/health')();
 
 healthcheck.addCheck('cassandra', 'timeout', async() => {
     return {
@@ -14,7 +14,7 @@ healthcheck.addCheck('cassandra', 'timeout', async() => {
     };
 });
 
-app.use(healthcheck({}));
+app.use(healthcheck.handler());
 
 function responder(req, res) {
     res.send('Hello World!');

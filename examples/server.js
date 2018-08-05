@@ -1,9 +1,8 @@
 const express = require('express');
 const app = express();
-const HealthCheck  = require('../');
+const healthcheck = require("../");
 
-const opts = {};
-const check = new HealthCheck();
+const check = healthcheck();
 check.addCheck('cassandra', 'timeout', async() => {
     return {
         status : 'pass',
@@ -13,8 +12,9 @@ check.addCheck('cassandra', 'timeout', async() => {
     };
 });
 
-app.use(check.handler(opts));
-const check2 = new HealthCheck({"path" : "/ping"});
+app.use(check.handler());
+
+const check2 = healthcheck({"path" : "/ping"});
 app.use(check2.handler());
 
 function responder(req, res) {
@@ -24,5 +24,4 @@ function responder(req, res) {
 app.get('/', responder);
 app.get('/hello', responder);
 
-
-app.listen(3535, () => console.log('Example app listening on port 3535!'))
+app.listen(3535, () => console.log('Example app listening on port 3535!'));

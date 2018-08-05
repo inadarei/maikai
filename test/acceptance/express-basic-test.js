@@ -1,7 +1,6 @@
 const test = require('blue-tape');
 const nf = require('node-fetch');
 const log  = require('metalogger')();
-const healthcheck = require("../../lib/health");
 
 test('Basic Healthy Health Check', async t => {
 
