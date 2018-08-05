@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
-const healthcheck = require("../");
+const HealthCheck  = require('../');
 
 const opts = {};
-
-healthcheck.addCheck('cassandra', 'timeout', async() => {
+const check = new HealthCheck();
+check.addCheck('cassandra', 'timeout', async() => {
     return {
         status : 'pass',
         bullshit : false,
@@ -13,7 +13,9 @@ healthcheck.addCheck('cassandra', 'timeout', async() => {
     };
 });
 
-app.use(healthcheck(opts));
+app.use(check.handler(opts));
+const check2 = new HealthCheck({"path" : "/ping"});
+app.use(check2.handler());
 
 function responder(req, res) {
     res.send('Hello Worldie!');
