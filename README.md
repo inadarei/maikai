@@ -22,12 +22,18 @@ defined in the [healthcheck draft RFC](https://tools.ietf.org/html/draft-inadare
 
 ## Implementation Status
 
+### Immediate Priority
+
 - [x] Express/Connect
 - [ ] Koa
+- [ ] Pure Node, no frameworks
+
+### Open to Community Contributions
+
 - [ ] Sails.js
 - [ ] hapi.js
 - [ ] Restify
-- [ ] Pure Node, no frameworks
+
 
 ## Installation
 
