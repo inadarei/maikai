@@ -39,7 +39,7 @@ function getServer() {
         metricUnit: "units"
     };
   });
-  app.use(healthcheck.handler());  
+  app.use(healthcheck.express());  
 
   const server = app.listen(0, function () {
     const port = server.address().port;

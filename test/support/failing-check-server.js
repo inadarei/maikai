@@ -13,7 +13,7 @@ healthcheck.addCheck('backend', 'something', async() => {
     };
 });
 
-app.use(healthcheck.handler());
+app.use(healthcheck.express());
 
 // Note: listening on port "0" results to listening on random, free port. Avoids conflicts.
 const server = app.listen(0, function () {

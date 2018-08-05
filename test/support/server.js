@@ -14,7 +14,7 @@ healthcheck.addCheck('cassandra', 'timeout', async() => {
     };
 });
 
-app.use(healthcheck.handler());
+app.use(healthcheck.express());
 
 function responder(req, res) {
     res.send('Hello World!');

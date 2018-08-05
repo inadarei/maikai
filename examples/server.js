@@ -12,10 +12,10 @@ check.addCheck('cassandra', 'timeout', async() => {
     };
 });
 
-app.use(check.handler());
+app.use(check.express());
 
 const check2 = healthcheck({"path" : "/ping"});
-app.use(check2.handler());
+app.use(check2.express());
 
 function responder(req, res) {
     res.send('Hello Worldie!');
