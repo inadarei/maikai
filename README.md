@@ -43,16 +43,17 @@ Basic Usage:
 const healthcheck = require('maikai');
 
 // Add middleware to your Express app:
-app.use(healthcheck.handler());
+app.use(healthcheck().handler());
 ```
 
 Advanced usage with custom health checker:
 
 ```javascript
-const healthcheck = require('maikai')();
+const healthcheck = require('maikai');
+const check = healthcheck();
 
 // If you need/want to add custom health checker functions:
-healthcheck.addCheck('cassandra', 'timeout', async () => {
+check.addCheck('cassandra', 'timeout', async () => {
     // Returning fake data here, for brevity, but you
     // could be making DB calls, to check its health, making
     // API calls to downstream dependencies, or anything else
@@ -65,7 +66,7 @@ healthcheck.addCheck('cassandra', 'timeout', async () => {
 });
 
 // Add middleware to your Express app:
-app.use(healthcheck.handler());
+app.use(check.handler());
 ```
 
 ## Kubernetes Liveness and Readiness Probes
@@ -81,7 +82,8 @@ const app = express();
 const healthcheck = require("maikai");
 
 // For Liveness Probe defaults may be all you need. 
-app.use(check.handler());
+const livenessCheck = healthcheck();
+app.use(livenessCheck.handler());
 
 // For Readiness probe, we override the path and provide more checks:
 const readinessCheck = healthcheck({"path" : "/ping"});
