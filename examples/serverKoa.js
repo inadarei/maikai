@@ -12,5 +12,7 @@ app.listen(3535);
 
 async function koaMiddleWare(ctx, next) {
   if (ctx.request.originalUrl != '/health') return next();
-  console.dir(ctx.request);
+  ctx.set('Content-Type', `application/json`);
+  ctx.response.status = 201;
+  ctx.body= {"name" : "response"};
 }
