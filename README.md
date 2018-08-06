@@ -10,6 +10,9 @@ Node health middleware is an unobtrusive module that you can easily integrate
 into your API code written in Node. This module is targeting multiple frameworks, 
 while currently supporting: Express.js.
 
+Maikai has full support for Kubernetes Readiness and Liveness Probes, making
+it a great solution for implementing healthchecks in your microservices.
+
 While the module is extremely configurable, you can also use it out of the box,
 with zero configuration. If you use default configuration, health check endpoint
 will be mounted at `/health` URI path and will respond with HTTP 202 as long 
@@ -46,16 +49,17 @@ Basic Usage:
 const healthcheck = require('maikai');
 
 // Add middleware to your Express app:
-app.use(healthcheck());
+app.use(healthcheck().express());
 ```
 
 Advanced usage with custom health checker:
 
 ```javascript
 const healthcheck = require('maikai');
+const check = healthcheck();
 
 // If you need/want to add custom health checker functions:
-healthcheck.addCheck('cassandra', 'timeout', async () => {
+check.addCheck('cassandra', 'timeout', async () => {
     // Returning fake data here, for brevity, but you
     // could be making DB calls, to check its health, making
     // API calls to downstream dependencies, or anything else
@@ -68,7 +72,45 @@ healthcheck.addCheck('cassandra', 'timeout', async () => {
 });
 
 // Add middleware to your Express app:
-app.use(healthcheck());
+app.use(check.express());
+```
+
+## Kubernetes Liveness and Readiness Probes
+
+When implementing [Kubernetes Liveness and Readiness probes](https://cloudplatform.googleblog.com/2018/05/Kubernetes-best-practices-Setting-up-health-checks-with-readiness-and-liveness-probes.html) you may decide that each one of those
+probes should be at different URI paths. Implementing this is very easy with
+Maikai. Let's assume your liveness probe is deployed at '/health', while your
+readiness probe is deployed at '/ping':
+
+```javascript
+const express = require('express');
+const app = express();
+const healthcheck = require("maikai");
+
+// For Liveness Probe, defaults may be all you need. 
+const livenessCheck = healthcheck();
+app.use(livenessCheck.express());
+
+// For Readiness probe, we override the path and provide more checks:
+const readinessCheck = healthcheck({"path" : "/ping"});
+readinessCheck.addCheck('cassandra', 'timeout', dbQueryCheck);
+app.use(readinessCheck.express());
+
+// Implementation of the dbQueryCheck:
+async function dbQueryCheck() {
+    // ... implementation of checking your database works
+}
+
+// -- rest of your server startup logic
+
+function responder(req, res) {
+    res.send('Hello Worldie!');
+}
+
+app.get('/', responder);
+
+app.listen(3535, () => console.log('Example app listening on port 3535!'));
+
 ```
 
 ## Customizations

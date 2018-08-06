@@ -12,11 +12,10 @@
   "engines": {
     "node": ">=8.2"
   },
-  "dependencies": {
-    "express": "^4.11.0",
-    "metalogger": "^2.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "express": "^4.11.0",
+    "metalogger": "^2.2.0",
     "blue-tape": "^1.0.0",
     "coveralls": "^3.0.0",
     "eslint": "^5.2.0",
