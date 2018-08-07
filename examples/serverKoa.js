@@ -18,6 +18,3 @@ const check2 = healthcheck({"path" : "/ping"});
 app.use(check2.koa());
 
 app.listen(3535, () => console.log('Example app listening on port 3535!'));
-
-//app.listen(3535);
-

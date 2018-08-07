@@ -11,8 +11,6 @@ test('Basic Healthy Koa Health Check', async t => {
   const baseuri = util.serverUri(server);
 
   try {
-    const res = await nf(`${baseuri}/hello`);
-  
     const res2 = await nf(`${baseuri}/health`);  
     t.equal(res2.status, 200, 'proper http status code for /health');
     t.equal(res2.headers.get('content-type'), 
@@ -21,8 +19,8 @@ test('Basic Healthy Koa Health Check', async t => {
     const response = await res2.json();
     t.same(response.status, 'pass',
       'healthcheck endpoint status works');
-    //t.same(response.details["cassandra:timeout"].metricUnit, 'ms',
-    //  'healthcheck endpoint details work');
+    t.same(response.details["backend:koa-downstream"].metricUnit, 'picoseconds',
+      'healthcheck endpoint details work');
   
   } catch (err) {
     t.fail(err);
@@ -43,7 +41,7 @@ function getServer() {
     return {
         status : 'pass',
         metricValue: 17,
-        metricUnit: "units"
+        metricUnit: "picoseconds"
     };
   });
 
