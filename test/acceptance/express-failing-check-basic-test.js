@@ -2,7 +2,7 @@ const test = require('blue-tape');
 const nf = require('node-fetch');
 const log  = require('metalogger')();
 
-test('Failing Health Check', async t => {
+test('Failing Express Health Check', async t => {
   const brokenserver = require('../support/failing-check-server').server;
   try {
     const util = require('../support/util');

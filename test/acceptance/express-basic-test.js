@@ -2,7 +2,7 @@ const test = require('blue-tape');
 const nf = require('node-fetch');
 const log  = require('metalogger')();
 
-test('Basic Healthy Health Check', async t => {
+test('Basic Healthy Express Health Check', async t => {
 
   // avoid problems if this env var is already set from wherever test was run
   process.env.NODE_HEALTH_ENDPOINT_PATH = "";

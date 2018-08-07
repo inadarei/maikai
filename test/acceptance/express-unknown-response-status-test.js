@@ -1,7 +1,7 @@
 const test = require('blue-tape');
 const nf = require('node-fetch');
 
-test('Unknown Response Status From a Dependency', async t => {
+test('Unknown Express Response Status From a Dependency', async t => {
   const server = getServer();
   try {
     const util = require('../support/util');
