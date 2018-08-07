@@ -2,7 +2,7 @@ const test = require('blue-tape');
 const nf = require('node-fetch');
 const log  = require('metalogger')();
 
-test('Overriding health endpoint URI', async t => {
+test('Overriding Express health endpoint URI', async t => {
 
   const OVERRIDDEN_PATH = "/ping";
   process.env.NODE_HEALTH_ENDPOINT_PATH = OVERRIDDEN_PATH;

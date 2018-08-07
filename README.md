@@ -25,7 +25,7 @@ defined in the [healthcheck draft RFC](https://tools.ietf.org/html/draft-inadare
 ### Immediate Priority
 
 - [x] Express/Connect
-- [ ] Koa
+- [x] Koa
 - [ ] Pure Node, no frameworks
 
 ### Open to Community Contributions
@@ -43,6 +43,8 @@ defined in the [healthcheck draft RFC](https://tools.ietf.org/html/draft-inadare
 
 ## Usage
 
+### Examples for Express.js
+
 Basic Usage:
 
 ```javascript
@@ -50,6 +52,7 @@ const healthcheck = require('maikai');
 
 // Add middleware to your Express app:
 app.use(healthcheck().express());
+app.listen(3535);
 ```
 
 Advanced usage with custom health checker:
@@ -73,6 +76,20 @@ check.addCheck('cassandra', 'timeout', async () => {
 
 // Add middleware to your Express app:
 app.use(check.express());
+app.listen(3535);
+```
+
+### Example for Koa.js
+
+```javascript
+const Koa = require('koa');
+const app = new Koa();
+const healthcheck = require("../");
+
+const check = healthcheck();
+
+app.use(check.koa());
+app.listen(3535);
 ```
 
 ## Kubernetes Liveness and Readiness Probes

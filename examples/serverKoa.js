@@ -1,16 +1,20 @@
 const Koa = require('koa');
 const app = new Koa();
+const healthcheck = require("../");
 
-app.use(koaMiddleWare);
-
-// response
-app.use(ctx => {
-  ctx.body = 'Hello Koa';
+const check = healthcheck();
+check.addCheck('cassandra', 'timeout', async() => {
+    return {
+        status : 'pass',
+        bullshit : false,
+        metricValue: 250,
+        "metricUnit": "ms"
+    };
 });
 
-app.listen(3535);
+app.use(check.koa());
 
-async function koaMiddleWare(ctx, next) {
-  if (ctx.request.originalUrl != '/health') return next();
-  console.dir(ctx.request);
-}
+const check2 = healthcheck({"path" : "/ping"});
+app.use(check2.koa());
+
+app.listen(3535, () => console.log('Example app listening on port 3535!'));
