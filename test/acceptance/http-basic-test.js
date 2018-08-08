@@ -11,6 +11,11 @@ test('Basic Healthy No-Frameworks Health Check', async t => {
   const baseuri = util.serverUri(server);
 
   try {
+    const res = await nf(`${baseuri}/`);
+    t.equal(res.status, 200, 'proper http status code for /');
+    t.same(await res.text(), 'Hello, World!',
+      'proper content for /');
+
     const res2 = await nf(`${baseuri}/health`);  
     t.equal(res2.status, 200, 'proper http status code for /health');
     t.equal(res2.headers.get('content-type'), 
@@ -48,7 +53,7 @@ function getServer() {
     const isHealthCheckCall = check.http(request, response);
     if (isHealthCheckCall) return;
   
-    response.end("HELLO! This is pretty amaziiiiing");
+    response.end("Hello, World!");
   });
 
   server.listen(0, function(err) {

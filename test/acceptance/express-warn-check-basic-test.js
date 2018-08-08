@@ -10,12 +10,12 @@ test('Failing Express Health Check', async t => {
     const uri = `${baseuri}/health`;
 
     const res = await nf(`${baseuri}/health`);  
-    t.equal(res.status, 503, 'correct http status code');   
+    t.equal(res.status, 200, 'correct http status code');   
     const response = await res.json();
 
-    t.same(response.status, 'fail',
+    t.same(response.status, 'warn',
     'correct status');
-    t.same(response.details["backend:something"].metricUnit, 'tps',
+    t.same(response.details["backend:something"].metricUnit, 'warnps',
     'correct payload');   
 
   } catch (err) {
@@ -30,13 +30,21 @@ function getServer() {
   const express = require('express');
   const app = express();
   const healthcheck  = require('../../lib/health')();
+
+  healthcheck.addCheck('backend', 'healthy', async() => {
+    return {
+        status : 'pass',
+        metricValue: 'A++',
+        metricUnit: "grade"
+    };
+  });
   
   healthcheck.addCheck('backend', 'something', async() => {
     return {
-        status : 'fail',
+        status : 'warn',
         unusualProp : false,
         metricValue: 17,
-        metricUnit: "tps"
+        metricUnit: "warnps"
     };
   });
   app.use(healthcheck.express());  
