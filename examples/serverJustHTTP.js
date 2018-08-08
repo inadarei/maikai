@@ -3,7 +3,8 @@ const healthcheck = require('../');
 
 http.createServer( (request, response) => {
   const check = healthcheck();
-  if (!check.http(request, response)) return;
+  const isHealthCheckCall = check.http(request, response);
+  if (isHealthCheckCall) return;
 
   response.end("HELLO! This is pretty amaziiiiing");
 }).listen(3535);
