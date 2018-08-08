@@ -84,12 +84,28 @@ app.listen(3535);
 ```javascript
 const Koa = require('koa');
 const app = new Koa();
-const healthcheck = require("../");
+const healthcheck = require("maikai");
 
 const check = healthcheck();
 
 app.use(check.koa());
 app.listen(3535);
+```
+
+### Example for no-frameworks, pure Node implementation:
+
+```javascript
+const http = require('http');
+const healthcheck = require('maikai');
+
+http.createServer( (request, response) => {
+  const check = healthcheck();
+  const isHealthCheckCall = check.http(request, response);
+  if (isHealthCheckCall) return;
+
+  response.end("HELLO! This is pretty amaziiiiing");
+}).listen(3535);
+console.log('Server running on port 3535');
 ```
 
 ## Kubernetes Liveness and Readiness Probes
