@@ -1,7 +1,7 @@
 const test = require('blue-tape');
 const nf = require('node-fetch');
 
-test('Basic Healthy Koa Health Check', async t => {
+test('Basic Healthy No-Frameworks Health Check', async t => {
 
   // avoid problems if this env var is already set from wherever test was run
   process.env.NODE_HEALTH_ENDPOINT_PATH = "";
@@ -24,7 +24,7 @@ test('Basic Healthy Koa Health Check', async t => {
     const response = await res2.json();
     t.same(response.status, 'pass',
       'healthcheck endpoint status works');
-    t.same(response.details["backend:koa-downstream"].metricUnit, 'picoseconds',
+    t.same(response.details["backend:http-downstream"].metricUnit, 'pureseconds',
       'healthcheck endpoint details work');
   
   } catch (err) {
@@ -37,35 +37,29 @@ test('Basic Healthy Koa Health Check', async t => {
 
 function getServer() {
   const http = require('http');
-  const Koa = require('koa');
-  const app = new Koa();
-  const Router = require('koa-router');
-  const router = new Router();
+  const healthcheck = require('../../');
   
-  router.get('/', (ctx, next) => {
-    ctx.body = 'Hello, World!';
-  });
+  const server = http.createServer( (request, response) => {
+    const check = healthcheck();
 
-  const healthcheck  = require('../../lib/health')();
+    check.addCheck('backend', 'http-downstream', async() => {
+      const status = {
+          status : 'pass',
+          metricValue: 17,
+          metricUnit: "pureseconds"
+      };
+
+      const fakepromise = require('fakepromise');
+      const delayedResponse = await fakepromise.promise(50, status);
+      return delayedResponse;
+    });
+
+    const checkHandler = check.http();
+    const isHealthCheckCall = checkHandler(request, response);
+    if (isHealthCheckCall) return;
   
-  healthcheck.addCheck('backend', 'koa-downstream', async() => {
-    const status = {
-        status : 'pass',
-        metricValue: 17,
-        metricUnit: "picoseconds"
-    };
-
-    const fakepromise = require('fakepromise');
-    const delayedResponse = await fakepromise.promise(50, status);
-    return delayedResponse;
+    response.end("Hello, World!");
   });
-
-  app
-  .use(healthcheck.koa())
-  .use(router.routes())
-  .use(router.allowedMethods());  
-
-  const server = http.createServer(app.callback());
 
   server.listen(0, function(err) {
     if (err) console.error(err) && process.exit(1);

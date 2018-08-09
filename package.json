@@ -1,6 +1,6 @@
 {
   "name": "maikai",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "RFC-compliant health check middleware for HTTP APIs and microservices written in Node",
   "author": "",
   "license": "MIT",
@@ -16,9 +16,11 @@
   "devDependencies": {
     "blue-tape": "^1.0.0",
     "coveralls": "^3.0.0",
-    "eslint": "^5.2.0",
+    "eslint": "^5.3.0",
     "express": "^4.11.0",
+    "fakepromise": "^1.0.5",
     "koa": "^2.5.2",
+    "koa-router": "^7.4.0",
     "metalogger": "^2.2.0",
     "node-fetch": "^2.2.0",
     "nyc": "^12.0",

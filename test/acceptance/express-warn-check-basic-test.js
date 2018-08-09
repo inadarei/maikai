@@ -1,6 +1,7 @@
 const test = require('blue-tape');
 const nf = require('node-fetch');
 const log  = require('metalogger')();
+const fakepromise = require('fakepromise');
 
 test('Failing Express Health Check', async t => {
   const brokenserver = getServer();
@@ -10,12 +11,12 @@ test('Failing Express Health Check', async t => {
     const uri = `${baseuri}/health`;
 
     const res = await nf(`${baseuri}/health`);  
-    t.equal(res.status, 503, 'correct http status code');   
+    t.equal(res.status, 200, 'correct http status code');   
     const response = await res.json();
 
-    t.same(response.status, 'fail',
+    t.same(response.status, 'warn',
     'correct status');
-    t.same(response.details["backend:something"].metricUnit, 'tps',
+    t.same(response.details["backend:something"].metricUnit, 'warnps',
     'correct payload');   
 
   } catch (err) {
@@ -30,16 +31,27 @@ function getServer() {
   const express = require('express');
   const app = express();
   const healthcheck  = require('../../lib/health')();
-  
-  healthcheck.addCheck('backend', 'something', async() => {
+
+  healthcheck.addCheck('backend', 'healthy', async() => {
+
     const status = {
-        status : 'fail',
-        unusualProp : false,
-        metricValue: 17,
-        metricUnit: "tps"
+        status : 'pass',
+        metricValue: 'A++',
+        metricUnit: "grade"
     };
 
-    const fakepromise = require('fakepromise');
+    const delayedResponse = await fakepromise.promise(50, status);
+    return delayedResponse;
+  });
+  
+  healthcheck.addCheck('backend', 'something', async() => {
+    const status =  {
+        status : 'warn',
+        unusualProp : false,
+        metricValue: 17,
+        metricUnit: "warnps"
+    };
+
     const delayedResponse = await fakepromise.promise(50, status);
     return delayedResponse;
   });

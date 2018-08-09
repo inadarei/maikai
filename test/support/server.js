@@ -6,12 +6,17 @@ delete require.cache[require.resolve('../../lib/health')];
 const healthcheck  = require('../../lib/health')();
 
 healthcheck.addCheck('cassandra', 'timeout', async() => {
-    return {
+    
+    const status = {
         status : 'pass',
         bullshit : false,
         metricValue: 250,
         "metricUnit": "ms"
     };
+
+    const fakepromise = require('fakepromise');
+    const delayedResponse = await fakepromise.promise(50, status);
+    return delayedResponse;
 });
 
 app.use(healthcheck.express());

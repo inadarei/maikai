@@ -26,7 +26,7 @@ defined in the [healthcheck draft RFC](https://tools.ietf.org/html/draft-inadare
 
 - [x] Express/Connect
 - [x] Koa
-- [ ] Pure Node, no frameworks
+- [x] Pure Node, no frameworks
 
 ### Open to Community Contributions
 
@@ -84,12 +84,38 @@ app.listen(3535);
 ```javascript
 const Koa = require('koa');
 const app = new Koa();
-const healthcheck = require("../");
-
+const Router = require('koa-router');
+const router = new Router();
+  
+const healthcheck = require("maikai");
 const check = healthcheck();
 
-app.use(check.koa());
+router.get('/hello', (ctx, next) => {
+    ctx.body = 'Hello, World!';
+});
+
+app.use(check.koa())
+   .use(router.routes())
+   .use(router.allowedMethods());
+
 app.listen(3535);
+```
+
+### Example for no-frameworks, pure Node implementation:
+
+```javascript
+const http = require('http');
+const healthcheck = require('maikai');
+
+http.createServer( (request, response) => {
+  const check = healthcheck();
+  const checkHandler = check.http();
+  const isHealthCheckCall = checkHandler(request, response);
+  if (isHealthCheckCall) return;
+
+  response.end("HELLO! This is pretty amaziiiiing");
+}).listen(3535);
+console.log('Server running on port 3535');
 ```
 
 ## Kubernetes Liveness and Readiness Probes

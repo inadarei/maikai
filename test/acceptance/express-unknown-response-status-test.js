@@ -33,11 +33,15 @@ function getServer() {
   const healthcheck  = require('../../lib/health')();
   
   healthcheck.addCheck('backend', 'something-malformed', async() => {
-    return {
+    const status = {
         status : 'nonexistent-status',
         metricValue: 17,
         metricUnit: "units"
     };
+
+    const fakepromise = require('fakepromise');
+    const delayedResponse = await fakepromise.promise(50, status);
+    return delayedResponse;
   });
   app.use(healthcheck.express());  
 
