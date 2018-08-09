@@ -26,7 +26,7 @@ defined in the [healthcheck draft RFC](https://tools.ietf.org/html/draft-inadare
 
 - [x] Express/Connect
 - [x] Koa
-- [ ] Pure Node, no frameworks
+- [x] Pure Node, no frameworks
 
 ### Open to Community Contributions
 
