@@ -84,11 +84,20 @@ app.listen(3535);
 ```javascript
 const Koa = require('koa');
 const app = new Koa();
+const Router = require('koa-router');
+const router = new Router();
+  
 const healthcheck = require("maikai");
-
 const check = healthcheck();
 
-app.use(check.koa());
+router.get('/hello', (ctx, next) => {
+    ctx.body = 'Hello, World!';
+});
+
+app.use(check.koa())
+   .use(router.routes())
+   .use(router.allowedMethods());
+
 app.listen(3535);
 ```
 
