@@ -109,7 +109,8 @@ const healthcheck = require('maikai');
 
 http.createServer( (request, response) => {
   const check = healthcheck();
-  const isHealthCheckCall = check.http(request, response);
+  const checkHandler = check.http();
+  const isHealthCheckCall = checkHandler(request, response);
   if (isHealthCheckCall) return;
 
   response.end("HELLO! This is pretty amaziiiiing");

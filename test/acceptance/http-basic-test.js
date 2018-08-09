@@ -54,7 +54,8 @@ function getServer() {
       return delayedResponse;
     });
 
-    const isHealthCheckCall = check.http(request, response);
+    const checkHandler = check.http();
+    const isHealthCheckCall = checkHandler(request, response);
     if (isHealthCheckCall) return;
   
     response.end("Hello, World!");
