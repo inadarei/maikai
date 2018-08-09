@@ -43,11 +43,15 @@ function getServer() {
     const check = healthcheck();
 
     check.addCheck('backend', 'http-downstream', async() => {
-      return {
+      const status = {
           status : 'pass',
           metricValue: 17,
           metricUnit: "pureseconds"
       };
+
+      const fakepromise = require('fakepromise');
+      const delayedResponse = await fakepromise.promise(50, status);
+      return delayedResponse;
     });
 
     const isHealthCheckCall = check.http(request, response);

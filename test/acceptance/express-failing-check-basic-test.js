@@ -32,12 +32,16 @@ function getServer() {
   const healthcheck  = require('../../lib/health')();
   
   healthcheck.addCheck('backend', 'something', async() => {
-    return {
+    const status = {
         status : 'fail',
         unusualProp : false,
         metricValue: 17,
         metricUnit: "tps"
     };
+
+    const fakepromise = require('fakepromise');
+    const delayedResponse = await fakepromise.promise(50, status);
+    return delayedResponse;
   });
   app.use(healthcheck.express());  
 

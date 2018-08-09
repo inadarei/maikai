@@ -1,6 +1,7 @@
 const test = require('blue-tape');
 const nf = require('node-fetch');
 const log  = require('metalogger')();
+const fakepromise = require('fakepromise');
 
 test('Failing Express Health Check', async t => {
   const brokenserver = getServer();
@@ -32,20 +33,27 @@ function getServer() {
   const healthcheck  = require('../../lib/health')();
 
   healthcheck.addCheck('backend', 'healthy', async() => {
-    return {
+
+    const status = {
         status : 'pass',
         metricValue: 'A++',
         metricUnit: "grade"
     };
+
+    const delayedResponse = await fakepromise.promise(50, status);
+    return delayedResponse;
   });
   
   healthcheck.addCheck('backend', 'something', async() => {
-    return {
+    const status =  {
         status : 'warn',
         unusualProp : false,
         metricValue: 17,
         metricUnit: "warnps"
     };
+
+    const delayedResponse = await fakepromise.promise(50, status);
+    return delayedResponse;
   });
   app.use(healthcheck.express());  
 

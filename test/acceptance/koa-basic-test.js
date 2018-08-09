@@ -49,11 +49,15 @@ function getServer() {
   const healthcheck  = require('../../lib/health')();
   
   healthcheck.addCheck('backend', 'koa-downstream', async() => {
-    return {
+    const status = {
         status : 'pass',
         metricValue: 17,
         metricUnit: "picoseconds"
     };
+
+    const fakepromise = require('fakepromise');
+    const delayedResponse = await fakepromise.promise(50, status);
+    return delayedResponse;
   });
 
   app
