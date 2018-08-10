@@ -3,6 +3,39 @@ const fakepromise = require('fakepromise');
 
 const healthcheck  = require('../../lib/health');
 
+test ('HealthCheck.worstStatus()', async t=> {
+  const check = healthcheck();
+  let one, two;
+
+  one = 'pass', two = 'warn';
+  t.equal(check.worstStatus (one, two), 'warn', `${one}, ${two}`);
+  
+  one = 'pass', two = 'fail';
+  t.equal(check.worstStatus (one, two), 'fail', `${one}, ${two}`);
+  
+  one = 'pass', two = 'pass';
+  t.equal(check.worstStatus (one, two), 'pass', `${one}, ${two}`);
+  
+  one = 'warn', two = 'pass';
+  t.equal(check.worstStatus (one, two), 'warn', `${one}, ${two}`);
+  
+  one = 'warn', two = 'fail';
+  t.equal(check.worstStatus (one, two), 'fail', `${one}, ${two}`);
+  
+  one = 'warn', two = 'warn';
+  t.equal(check.worstStatus (one, two), 'warn', `${one}, ${two}`);
+
+  one = 'fail', two = 'pass';
+  t.equal(check.worstStatus (one, two), 'fail', `${one}, ${two}`);
+  
+  one = 'fail', two = 'warn';
+  t.equal(check.worstStatus (one, two), 'fail', `${one}, ${two}`);
+  
+  one = 'fail', two = 'fail';
+  t.equal(check.worstStatus (one, two), 'fail', `${one}, ${two}`);
+
+});
+
 test('HealthCheck.addCheck()', async t => {
 
   const check = healthcheck();

@@ -72,12 +72,28 @@ check.addCheck('cassandra', 'timeout', async () => {
         metricValue: 250,
         metricUnit: "ms"
     };
-});
+}, 10000);
 
 // Add middleware to your Express app:
 app.use(check.express());
 app.listen(3535);
 ```
+
+#### Caching and Back-end Protection
+
+Please note the third argument (`10000`) in the `.addCheck()` call for 
+the cassandra metric. It is `minCacheDuration` in milliseconds. Meaning:
+you can tell the health check to only run an expensive healthcheck call
+against Cassandra eevry 10 seconds (10,000 milliseconds), at most! Even if
+your health probing infrastructure (e.g. Kubernetes) calls your health
+chech endpoint, executing other, less-heavy calls – you can indicate that
+some expensive calls (e.g. DB calls) not be executed at every ping and
+be cached. 
+
+This unique capability of Maikai is critical for preventing
+health monitoring software from DDOS-ing your systems, keeping them "dumb"
+and inexpensive, while still providing very timely health information about
+more basic metrics. 
 
 ### Example for Koa.js
 
