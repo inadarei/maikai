@@ -41,9 +41,9 @@ defined in the [healthcheck draft RFC](https://tools.ietf.org/html/draft-inadare
 > npm i -S maikai
 ```
 
-## Usage
+# Usage
 
-### Examples for Express.js
+## Examples for Express.js
 
 Basic Usage:
 
@@ -79,7 +79,7 @@ app.use(check.express());
 app.listen(3535);
 ```
 
-#### Caching and Back-end Protection
+### Caching and Back-end Protection
 
 Please note the third argument (`10000`) in the `.addCheck()` call for 
 the cassandra metric. It is `minCacheDuration` in milliseconds. Meaning:
@@ -95,7 +95,7 @@ health monitoring software from DDOS-ing your systems, keeping them "dumb"
 and inexpensive, while still providing very timely health information about
 more basic metrics. 
 
-### Example for Koa.js
+## Example for Koa.js
 
 ```javascript
 const Koa = require('koa');
@@ -117,7 +117,7 @@ app.use(check.koa())
 app.listen(3535);
 ```
 
-### Example for no-frameworks, pure Node implementation:
+## Example for no-frameworks, pure Node implementation:
 
 ```javascript
 const http = require('http');
@@ -208,7 +208,7 @@ or 'fail' and MAY have following additional fields:
 
 ## Roadmap
 
-1. Cached checks - expensive checks, like database calls, should not be called 
+1. [x] Cached checks - expensive checks, like database calls, should not be called 
 every time a monitoring service decides to invoke health check endpoint to 
 prevent accidental self-denial-of-service outages. Ability to cache expensive
 checks is important for a quality health check system.
