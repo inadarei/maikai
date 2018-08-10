@@ -8,7 +8,7 @@
 
 Node health middleware is an unobtrusive module that you can easily integrate
 into your API code written in Node. This module is targeting multiple frameworks, 
-while currently supporting: Express.js.
+while currently supporting: Express.js, Koa.js and vanilla Node http.
 
 Maikai has full support for Kubernetes Readiness and Liveness Probes, making
 it a great solution for implementing healthchecks in your microservices.
