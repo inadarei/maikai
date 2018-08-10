@@ -81,19 +81,22 @@ app.listen(3535);
 
 ### Caching and Back-end Protection
 
-Please note the third argument (`10000`) in the `.addCheck()` call for 
-the cassandra metric. It is `minCacheDuration` in milliseconds. Meaning:
-you can tell the health check to only run an expensive healthcheck call
-against Cassandra eevry 10 seconds (10,000 milliseconds), at most! Even if
-your health probing infrastructure (e.g. Kubernetes) calls your health
-chech endpoint, executing other, less-heavy calls – you can indicate that
-some expensive calls (e.g. DB calls) not be executed at every ping and
-be cached. 
+Please note the third argument (`10000`) in the `.addCheck()` call for the
+cassandra metric. It is `minCacheDuration`, indicated in milliseconds. Meaning:
+you can tell the health check endpoint to only run an expensive, downstream
+healthcheck probe against Cassandra every 10 seconds (10,000 milliseconds), at
+most! 
 
-This unique capability of Maikai is critical for preventing
-health monitoring software from DDOS-ing your systems, keeping them "dumb"
-and inexpensive, while still providing very timely health information about
-more basic metrics. 
+Even if your health probing infrastructure (e.g. Kubernetes) calls your health
+check endpoint very frequently, they will only trigger the calls you deemed
+light enough. For more heavy calls (e.g. DB calls like that to Cassandra),
+Maikai will serve cached values, avoiding stress on downstream systems.
+
+This unique capability of Maikai is critical for preventing health monitoring
+software from DDOS-ing your valuable systems. Throttling calls in Maikai itself
+keeps both your infrastructure, as well as you custom healtcheck code's logic
+straightforward, operations inexpensive, while still providing very timely health
+information about more lightweight metrics.
 
 ## Example for Koa.js
 
