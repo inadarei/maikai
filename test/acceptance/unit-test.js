@@ -14,7 +14,7 @@ test('HealthCheck.addCheck()', async t => {
     return fakepromise.promise(50, status);
   });
 
-  const testName1 = 'Calling different addCheck() multple times is fine';
+  const testName1 = 'Calling different addCheck() multiple times is fine';
   try {
     check.addCheck('component2', 'metric2', async () => {
       const status = {
@@ -29,7 +29,7 @@ test('HealthCheck.addCheck()', async t => {
   }
   t.ok(true, testName1);
 
-  const testName2 = 'Calling identical addCheck() multple times not allowed';
+  const testName2 = 'Calling identical addCheck() multiple times not allowed';
   const expectedErr = /Calling identical addCheck/i;
   try {
     check.addCheck('component1', 'metric1', async () => {
