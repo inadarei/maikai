@@ -1,6 +1,7 @@
 test
 coverage
 examples
+package-lock.json
 .codeclimate.yml
 .eslintignore
 .eslintrc.yml
