@@ -50,8 +50,7 @@ function getServer() {
       };
 
       const fakepromise = require('fakepromise');
-      const delayedResponse = await fakepromise.promise(50, status);
-      return delayedResponse;
+      return fakepromise.promise(50, status);
     });
 
     const checkHandler = check.http();
