@@ -15,7 +15,7 @@ it a great solution for implementing healthchecks in your microservices.
 
 While the module is extremely configurable, you can also use it out of the box,
 with zero configuration. If you use default configuration, health check endpoint
-will be mounted at `/health` URI path and will respond with HTTP 202 as long 
+will be mounted at `/health` URI path and will respond with HTTP 200 as long 
 as your Node server is up. In more involved setups you can add all kinds of
 custom health checks (e.g. database) and expose wide variety of metrics as
 defined in the [healthcheck draft RFC](https://tools.ietf.org/html/draft-inadarei-api-health-check.html). 

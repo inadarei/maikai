@@ -92,3 +92,31 @@ test('HealthCheck.addCheck()', async t => {
   }
   
 });
+
+test('HealthCheck._addCheck()', async t => {
+  const check = healthcheck();
+
+  const testName = 'Calling _addCheck() without a key errors-out';
+  const expectedErr = /Cannot add a check with an empty key/i;
+  try {
+    const badCheck = {somkey: "someVal"};
+    check._addCheck(badCheck);
+    t.fail(testName);
+  } catch (err) {
+    t.ok(expectedErr.test(err.toString()), testName);
+  }
+});
+
+test('HealthCheck._setCheckProp()', async t => {
+  const check = healthcheck();
+  const key = "nonEK";
+
+  const testName = 'Calling _addCheck() without a key errors-out';
+  const expectedErr = /Cannot set a value on a check with a nonexistent key nonEK/i;
+  try {
+    check._setCheckProp(key, "foo", {bar: "bar"});
+    t.fail(testName);
+  } catch (err) {
+    t.ok(expectedErr.test(err.toString()), testName);
+  }
+});
