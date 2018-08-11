@@ -79,7 +79,7 @@ app.use(check.express());
 app.listen(3535);
 ```
 
-### Caching and Back-end Protection
+### Caching and Backend Protection
 
 Please note the third argument (`10000`) in the `.addCheck()` call for the
 cassandra metric. It is `minCacheDuration`, indicated in milliseconds. Meaning:
@@ -120,7 +120,7 @@ app.use(check.koa())
 app.listen(3535);
 ```
 
-## Example for no-frameworks, pure Node implementation:
+## Example for no-Frameworks, Pure Node Implementation
 
 ```javascript
 const http = require('http');
@@ -191,12 +191,15 @@ go about writing custom health checks.
 
 ### Writing Custom Health Checkers
 
-Every APi and application is different. The kind of metrics you may need to track
-can be different from what others do. This module is all about being flexible,
-while being designed for consistency and RFC-compliance. Adding custom health 
-checks is very easy. All you need to do is to call an `addCheck()` call with
-the name of the component and metrics that the check is related to, as well
-as an ES2018 async function that will be executed to retrieve the health values.
+Every APi and application is different. The kind of metrics you may need to
+track can be different from what others do. This module is all about being
+flexible, while being designed for consistency and RFC-compliance. Adding custom
+health checks is very easy. All you need to do is to call an `addCheck()` method
+with the name of the component and metrics that the check is related to, as well
+as pass an ES2018 async function that will be executed to retrieve the health
+values. Because some existing libraries produce promises, to free you from
+having to wrap those into an async function, we also allow passing an unresolved
+promise to `.addCheck`, instead of the async function.
 
 The return JSON object MUST have `status` field that is either 'pass', 'warn'
 or 'fail' and MAY have following additional fields:

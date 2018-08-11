@@ -1,6 +1,7 @@
 const log     = require('metalogger')();
 const express = require('express');
 const app = express();
+const fakepromise = require('fakepromise');
 
 delete require.cache[require.resolve('../../lib/health')]; 
 const healthcheck  = require('../../lib/health')();
@@ -14,9 +15,12 @@ healthcheck.addCheck('cassandra', 'timeout', async() => {
         "metricUnit": "ms"
     };
 
-    const fakepromise = require('fakepromise');
     return fakepromise.promise(50, status);
 });
+
+healthcheck.addCheck('db', 'userRetrieval', 
+    fakepromise.promise(50, {status: 'pass'})
+);
 
 app.use(healthcheck.express());
 

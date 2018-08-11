@@ -15,11 +15,9 @@ check.addCheck('cassandra', 'timeout', async() => {
     });
 }, 5000);
 
-check.addCheck('mysql', 'success', async() => {
-    return await fp.promise(20,{
+check.addCheck('mysql', 'success', fp.promise(20,{
         status : 'pass'
-    });
-}, 8000);
+    }), 8000);
 
 check.addCheck('downStreamAPI', 'response', async() => {
     return {
