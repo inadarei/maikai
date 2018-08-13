@@ -4,7 +4,7 @@ const log  = require('metalogger')();
 
 const overridenTime = '2018-08-11T19:36:29+00:00';
 
-test('If check returns time cache should use that', async t => {
+test('If check returns time, cache should use that', async t => {
   const brokenserver = getServer();
   try {
     const util = require('../support/util');

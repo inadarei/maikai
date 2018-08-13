@@ -16,7 +16,7 @@ test('Basic Healthy Express Health Check', async t => {
     const res = await nf(`${baseuri}/hello`);  
     t.equal(res.status, 200, 'proper http status code for /hello');
     t.same(await res.text(), 'Hello World!',
-           'An API endpoint works');
+           'proper response payload for /hello');
   
     const res2 = await nf(`${baseuri}/health`);  
     t.equal(res2.status, 200, 'proper http status code for /health');
@@ -31,12 +31,12 @@ test('Basic Healthy Express Health Check', async t => {
       'healthcheck endpoint details work');
 
     t.same(response.details["downStreamAPI:response"].metricValue, 250,
-      'healthcheck endpoint details work for second check');
+      'healthcheck endpoint details work for a second checker');
 
     const delay = await fp.promise(100, true); // slight delay to test caching below
 
     const res3 = await nf(`${baseuri}/health`);  
-    t.equal(res3.status, 200, 'proper http status code for /health second call');
+    t.equal(res3.status, 200, 'proper http status code for a second call of /health');
     const response3 = await res3.json();
 
     const cassandra_time_1 = response.details["cassandra:timeout"].time;
