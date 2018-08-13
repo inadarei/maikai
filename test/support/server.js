@@ -19,8 +19,20 @@ healthcheck.addCheck('cassandra', 'timeout', async() => {
 });
 
 healthcheck.addCheck('db', 'userRetrieval', 
-    fakepromise.promise(50, {status: 'pass'})
+    fakepromise.promise(50, {status: 'pass'}),
 );
+
+healthcheck.addCheck('mysql', 'success', fakepromise.promise(20,{
+    status : 'pass'
+}), 8000);
+
+healthcheck.addCheck('downStreamAPI', 'response', async() => {
+    return {
+        status : 'pass',
+        metricValue: 250,
+        "metricUnit": "ms"
+    };
+}, 10000);
 
 app.use(healthcheck.express());
 

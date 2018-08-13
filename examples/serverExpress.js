@@ -7,6 +7,7 @@ const healthcheck = require("../");
 const check = healthcheck();
 
 check.addCheck('cassandra', 'timeout', async() => {
+    console.log("cassandra:timeout CALLLED!");
     return await fp.promise(10, {
         status : 'pass',
         bullshit : false,
@@ -20,9 +21,10 @@ check.addCheck('mysql', 'success', fp.promise(20,{
     }), 8000);
 
 check.addCheck('downStreamAPI', 'response', async() => {
+    console.log("downStreamAPI:response CALLEDDDDDDDDDDD!!!!");
     return {
         status : 'pass',
-        metricValue: 250,
+        metricValue: 750,
         "metricUnit": "ms"
     };
 }, 100);
