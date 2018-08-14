@@ -16,7 +16,7 @@ check.addCheck('cassandra', 'timeout', async() => {
     });
 }, {minCacheMs: 5000});
 
-check.addCheck('mysql', 'success', fp.promise(20,{
+check.addCheck('mysql', 'success', async () => fp.promise(20,{
         status : 'pass'
     }), {minCacheMs: 8000});
 

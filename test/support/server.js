@@ -19,10 +19,10 @@ healthcheck.addCheck('cassandra', 'timeout', async() => {
 });
 
 healthcheck.addCheck('db', 'userRetrieval', 
-    fakepromise.promise(50, {status: 'pass'}),
+    async () =>fakepromise.promise(50, {status: 'pass'}),
 );
 
-healthcheck.addCheck('mysql', 'success', fakepromise.promise(20,{
+healthcheck.addCheck('mysql', 'success', async () => fakepromise.promise(20,{
     status : 'pass'
 }), {minCacheMs: 8000});
 

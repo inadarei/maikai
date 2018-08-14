@@ -48,7 +48,7 @@ test('HealthCheck.addCheck()', async t => {
   t.ok(true, "Calling addCheck() with an async function is fine");
 
   check.addCheck('component-p', 'metric-p', 
-    fakepromise.promise(20, {status: 'pass'})
+    async () => fakepromise.promise(20, {status: 'pass'})
   );
   t.ok(true, "Calling addCheck() with an unresolved promise is also fine");
 
