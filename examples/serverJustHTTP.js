@@ -12,7 +12,7 @@ http.createServer( (request, response) => {
         metricValue: 250,
         "metricUnit": "ms"
     });
-  }, 5000);
+  }, {minCacheMs: 5000});
 
   const checkHandler = check.http();
   const isHealthCheckCall = checkHandler(request, response);

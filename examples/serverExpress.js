@@ -14,11 +14,11 @@ check.addCheck('cassandra', 'timeout', async() => {
         metricValue: 250,
         "metricUnit": "ms"
     });
-}, 5000);
+}, {minCacheMs: 5000});
 
 check.addCheck('mysql', 'success', fp.promise(20,{
         status : 'pass'
-    }), 8000);
+    }), {minCacheMs: 8000});
 
 check.addCheck('downStreamAPI', 'response', async() => {
     console.log("downStreamAPI:response CALLEDDDDDDDDDDD!!!!");
@@ -27,7 +27,7 @@ check.addCheck('downStreamAPI', 'response', async() => {
         metricValue: 750,
         "metricUnit": "ms"
     };
-}, 100);
+}, {minCacheMs: 100});
 
 app.use(check.express());
 

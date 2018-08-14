@@ -24,7 +24,7 @@ healthcheck.addCheck('db', 'userRetrieval',
 
 healthcheck.addCheck('mysql', 'success', fakepromise.promise(20,{
     status : 'pass'
-}), 8000);
+}), {minCacheMs: 8000});
 
 healthcheck.addCheck('downStreamAPI', 'response', async() => {
     return {
@@ -32,7 +32,7 @@ healthcheck.addCheck('downStreamAPI', 'response', async() => {
         metricValue: 250,
         "metricUnit": "ms"
     };
-}, 10000);
+}, {minCacheMs: 10000});
 
 app.use(healthcheck.express());
 

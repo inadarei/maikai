@@ -72,7 +72,7 @@ check.addCheck('cassandra', 'timeout', async () => {
         metricValue: 250,
         metricUnit: "ms"
     };
-}, 10000);
+}, {minCacheMs: 10000});
 
 // Add middleware to your Express app:
 app.use(check.express());
@@ -81,11 +81,11 @@ app.listen(3535);
 
 ### Caching and Backend Protection
 
-Please note the third argument (`10000`) in the `.addCheck()` call for the
-cassandra metric. It is `minCacheDuration`, indicated in milliseconds. Meaning:
-you can tell the health check endpoint to only run an expensive, downstream
-healthcheck probe against Cassandra every 10 seconds (10,000 milliseconds), at
-most! 
+Please note the fourth argument `{minCacheMs: 10000}` in the `.addCheck()` call
+for the cassandra metric. It sets minimal cache duration, indicated in
+milliseconds. Meaning: you can tell the health check endpoint to only run an
+expensive, downstream healthcheck probe against Cassandra every 10 seconds
+(10,000 milliseconds), at most! 
 
 Even if your health probing infrastructure (e.g. Kubernetes) calls your health
 check endpoint very frequently, they will only trigger the calls you deemed
