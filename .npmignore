@@ -1,3 +1,9 @@
 test
 coverage
 examples
+package-lock.json
+.codeclimate.yml
+.eslintignore
+.eslintrc.yml
+.travis.yml
+.nyc_output

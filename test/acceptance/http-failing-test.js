@@ -1,7 +1,7 @@
 const test = require('blue-tape');
 const nf = require('node-fetch');
 
-test('Basic Healthy No-Frameworks Health Check', async t => {
+test('Basic Failing No-Frameworks Health Check', async t => {
 
   // avoid problems if this env var is already set from wherever test was run
   process.env.NODE_HEALTH_ENDPOINT_PATH = "";
@@ -11,21 +11,14 @@ test('Basic Healthy No-Frameworks Health Check', async t => {
   const baseuri = util.serverUri(server);
 
   try {
-    const res = await nf(`${baseuri}/`);
-    t.equal(res.status, 200, 'proper http status code for /');
-    t.same(await res.text(), 'Hello, World!',
-      'proper content for /');
-
     const res2 = await nf(`${baseuri}/health`);  
-    t.equal(res2.status, 200, 'proper http status code for /health');
+    t.equal(res2.status, 503, 'proper http status code for /health');
     t.equal(res2.headers.get('content-type'), 
             'application/health+json; charset=utf-8',
             'proper content type for health endpoint');
     const response = await res2.json();
-    t.same(response.status, 'pass',
+    t.same(response.status, 'fail',
       'healthcheck endpoint status works');
-    t.same(response.details["backend:http-downstream"].metricUnit, 'pureseconds',
-      'healthcheck endpoint details work');
   
   } catch (err) {
     t.fail(err);
@@ -44,9 +37,7 @@ function getServer() {
 
     check.addCheck('backend', 'http-downstream', async() => {
       const status = {
-          status : 'pass',
-          metricValue: 17,
-          metricUnit: "pureseconds"
+          status : 'fail'
       };
 
       const fakepromise = require('fakepromise');

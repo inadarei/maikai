@@ -1,6 +1,6 @@
 {
   "name": "maikai",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "RFC-compliant health check middleware for HTTP APIs and microservices written in Node",
   "author": "",
   "license": "MIT",

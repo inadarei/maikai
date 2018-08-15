@@ -1,12 +1,11 @@
 const test = require('blue-tape');
 const nf = require('node-fetch');
-const log  = require('metalogger')();
 
-test('Failing Express Health Check', async t => {
-  const brokenserver = getServer();
+test('Missing Express Response Status From a Dependency', async t => {
+  const server = getServer();
   try {
     const util = require('../support/util');
-    const baseuri = util.serverUri(brokenserver);
+    const baseuri = util.serverUri(server);
     const uri = `${baseuri}/health`;
 
     const res = await nf(`${baseuri}/health`);  
@@ -14,14 +13,16 @@ test('Failing Express Health Check', async t => {
     const response = await res.json();
 
     t.same(response.status, 'fail',
-    'correct status');
-    t.same(response.details["backend:something"].metricUnit, 'tps',
-    'correct payload');   
+      'correct status');
+
+    const regex = /Status for .*? may not be missing/;
+    const test = response.details['backend:something-malformed'].output;
+    t.same(Array.isArray(test.match(regex)), true, 'correct payload'); 
 
   } catch (err) {
     t.fail(err);
   }
-  brokenserver.close();
+  server.close();
 
   //t.end();  // async tests dont need t.end() because blue-tape.
 });
@@ -31,12 +32,10 @@ function getServer() {
   const app = express();
   const healthcheck  = require('../../lib/health')();
   
-  healthcheck.addCheck('backend', 'something', async() => {
+  healthcheck.addCheck('backend', 'something-malformed', async() => {
     const status = {
-        status : 'fail',
-        unusualProp : false,
         metricValue: 17,
-        metricUnit: "tps"
+        metricUnit: "units"
     };
 
     const fakepromise = require('fakepromise');
@@ -51,15 +50,3 @@ function getServer() {
 
   return server;
 }
-
-  /*
-      let res = await request('http://api.froyo.io/names?gender=f', {headers});
-
-    //console.log(res);
-    console.log(res.ok);
-    console.log(res.status);
-    console.log(res.statusText);
-    console.log(res.headers.raw());
-    console.log(res.headers.get('content-type'));
-    console.log(await res.json());
-    */

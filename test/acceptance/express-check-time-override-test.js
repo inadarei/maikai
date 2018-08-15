@@ -2,7 +2,9 @@ const test = require('blue-tape');
 const nf = require('node-fetch');
 const log  = require('metalogger')();
 
-test('Failing Express Health Check', async t => {
+const overridenTime = '2018-08-11T19:36:29+00:00';
+
+test('If check returns time, cache should use that', async t => {
   const brokenserver = getServer();
   try {
     const util = require('../support/util');
@@ -15,8 +17,8 @@ test('Failing Express Health Check', async t => {
 
     t.same(response.status, 'fail',
     'correct status');
-    t.same(response.details["backend:something"].metricUnit, 'tps',
-    'correct payload');   
+    t.same(response.details["backend:something"].time, overridenTime,
+    'correct time');
 
   } catch (err) {
     t.fail(err);
@@ -36,7 +38,8 @@ function getServer() {
         status : 'fail',
         unusualProp : false,
         metricValue: 17,
-        metricUnit: "tps"
+        metricUnit: "tps",
+        time: overridenTime
     };
 
     const fakepromise = require('fakepromise');
@@ -51,15 +54,3 @@ function getServer() {
 
   return server;
 }
-
-  /*
-      let res = await request('http://api.froyo.io/names?gender=f', {headers});
-
-    //console.log(res);
-    console.log(res.ok);
-    console.log(res.status);
-    console.log(res.statusText);
-    console.log(res.headers.raw());
-    console.log(res.headers.get('content-type'));
-    console.log(await res.json());
-    */

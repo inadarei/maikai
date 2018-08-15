@@ -1,6 +1,7 @@
 const log     = require('metalogger')();
 const express = require('express');
 const app = express();
+const fakepromise = require('fakepromise');
 
 delete require.cache[require.resolve('../../lib/health')]; 
 const healthcheck  = require('../../lib/health')();
@@ -14,10 +15,24 @@ healthcheck.addCheck('cassandra', 'timeout', async() => {
         "metricUnit": "ms"
     };
 
-    const fakepromise = require('fakepromise');
-    const delayedResponse = await fakepromise.promise(50, status);
-    return delayedResponse;
+    return fakepromise.promise(50, status);
 });
+
+healthcheck.addCheck('db', 'userRetrieval', 
+    async () =>fakepromise.promise(50, {status: 'pass'}),
+);
+
+healthcheck.addCheck('mysql', 'success', async () => fakepromise.promise(20,{
+    status : 'pass'
+}), {minCacheMs: 8000});
+
+healthcheck.addCheck('downStreamAPI', 'response', async() => {
+    return {
+        status : 'pass',
+        metricValue: 250,
+        "metricUnit": "ms"
+    };
+}, {minCacheMs: 10000});
 
 app.use(healthcheck.express());
 

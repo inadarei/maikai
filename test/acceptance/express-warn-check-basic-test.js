@@ -40,8 +40,7 @@ function getServer() {
         metricUnit: "grade"
     };
 
-    const delayedResponse = await fakepromise.promise(50, status);
-    return delayedResponse;
+    return fakepromise.promise(50, status);
   });
   
   healthcheck.addCheck('backend', 'something', async() => {
