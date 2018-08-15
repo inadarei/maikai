@@ -82,8 +82,8 @@ test('HealthCheck.addCheck()', async t => {
     t.ok(expectedErr2.test(err.toString()), testName2);
   }
 
-  const testName3 = 'Calling addCheck with callback that is neither async or a promise object errors-out';
-  const expectedErr3 = /.*Callback for .*? must be a promise or an async function/i;
+  const testName3 = 'Calling addCheck with callback that is not a function errors-out';
+  const expectedErr3 = /.*Callback for .*? must be a function/i;
   try {
     check.addCheck('component-obj', 'metric-obj', {something: 'else'});
     t.fail(testName3);
