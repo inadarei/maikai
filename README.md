@@ -166,7 +166,7 @@ async function dbQueryCheck() {
 // -- rest of your server startup logic
 
 function responder(req, res) {
-    res.send('Hello Worldie!');
+    res.send('Hello Worldy!');
 }
 
 app.get('/', responder);
