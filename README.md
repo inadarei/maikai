@@ -191,7 +191,7 @@ go about writing custom health checks.
 
 ### Writing Custom Health Checkers
 
-Every APi and application is different. The kind of metrics you may need to
+Every API and application is different. The kind of metrics you may need to
 track can be different from what others do. This module is all about being
 flexible, while being designed for consistency and RFC-compliance. Adding custom
 health checks is very easy. All you need to do is to call an `addCheck()` method
