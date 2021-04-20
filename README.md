@@ -191,13 +191,13 @@ go about writing custom health checks.
 
 ### Writing Custom Health Checkers
 
-Every APi and application is different. The kind of metrics you may need to
+Every API and application is different. The kind of metrics you may need to
 track can be different from what others do. This module is all about being
 flexible, while being designed for consistency and RFC-compliance. Adding custom
 health checks is very easy. All you need to do is to call an `addCheck()` method
 with the name of the component and metrics that the check is related to, as well
 as pass a health check executor function that will be executed to retrieve the
-health values. Executor function must be a function that returns a fresh promise
+health values. The executor function must be a function that returns a fresh promise
 at every execution (usually: it is an ES2018 async function).
 
 The return JSON object MUST have `status` field that is either 'pass', 'warn'
